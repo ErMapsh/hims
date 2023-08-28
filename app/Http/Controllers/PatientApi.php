@@ -54,4 +54,15 @@ class PatientApi extends Controller
             return response()->json(['status' => false, 'message' => 'Internal Server Error'], 500);
         }
     }
+
+    public function patientExist($patientId)
+    {
+        try {
+            $result = Patients::where('patient_id', $patientId)->exists();
+            return response()->json($result, 200);
+        } catch (\Throwable $th) {
+            // dd($th);
+            return response()->json(["status" => false, "message" => "Internal Server Error"], 500);
+        }
+    }
 }

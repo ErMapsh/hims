@@ -23,4 +23,16 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     // patient
     $router->get('doctor/{docId}/patients', 'PatientApi@index');
     $router->post('doctor/{docId}/patientRegister', 'DoctorApi@createPatient');
+
+     /* diagnostic report */
+    $router->post('doctor/{docId}/createDiagnosticReport','DoctorApi@createDiagnosticReport');
+    $router->get('doctor/dignosticReport/{patientId}', 'DoctorApi@diagnosticlist');
+
+    /* OP consultation */
+    $router->post('doctor/{docId}/patient/opCosultation', 'DoctorApi@createOpConsultation');
+    $router->get('doctor/patient/opCosultation/{patientId}', 'DoctorApi@Opconsultationlist');
+
+    /* Discharge summary */
+    $router->post('doctor/{docId}/patient/DischargeSummary', 'DoctorApi@CreateDischargeSummary');
+    $router->get('doctor/patient/DischargeSummary/{patientId}', 'DoctorApi@DischargeSummaryList');
 });
