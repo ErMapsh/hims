@@ -21,7 +21,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     //doctor
 
     // patient
-    $router->get('doctor/{docId}/patients', 'PatientApi@index');
+    $router->get('doctor/{docId}/patients', 'DoctorApi@index');
     $router->post('doctor/{docId}/patientRegister', 'DoctorApi@createPatient');
 
      /* diagnostic report */
