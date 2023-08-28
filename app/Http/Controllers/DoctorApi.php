@@ -8,6 +8,7 @@ use App\Models\DischargeSummary;
 use App\Models\Doctors;
 use App\Models\Opconsultation;
 use App\Models\Patients;
+use App\Models\RecordPrescription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -176,7 +177,36 @@ class DoctorApi extends Controller
     }
 
     // Record prescription
+    public function UploadRecordPrescription($docId, Request $request)
+    {
+        try {
+            $req = $request->all();
+            $op = new RecordPrescription();
+            $op->patient_id = $req['patient_id'];
+            $op->user_map_id = $docId;
+            $op->notes = $req['notes'];
+            $op->upload_file = $req['upload_file'];
 
+            $save = $op->save();
+            if ($save) {
+                return response()->json(['status' => true, 'message' => "Record prescription successfully added"], 200);
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+            return response()->json(["status" => false, 'message' => "Internal Server Error"], 500);
+        }
+    }
+
+    public function RecordPrescriptionList($patientId)
+    {
+        $api = new PatientApi();
+        if ($api->patientExist($patientId)) {
+            $fun = new RecordPrescription();
+            $res = $fun->getRecordPrescriptionList($patientId);
+            return response()->json(['status' => true, "data" => $res], 200);
+        }
+        return response()->json(['status' => false, "message" => "Patient Not exist"], 404);
+    }
 
 
 

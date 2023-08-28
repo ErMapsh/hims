@@ -35,4 +35,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     /* Discharge summary */
     $router->post('doctor/{docId}/patient/DischargeSummary', 'DoctorApi@CreateDischargeSummary');
     $router->get('doctor/patient/DischargeSummary/{patientId}', 'DoctorApi@DischargeSummaryList');
+
+
+    /* Record Precription */
+    $router->post('doctor/{docId}/patient/UploadRecordPrescription', 'DoctorApi@UploadRecordPrescription');
+    $router->get('doctor/patient/RecordPrescription/{patientId}', 'DoctorApi@RecordPrescriptionList');
 });
