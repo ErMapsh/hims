@@ -12,6 +12,6 @@ class Patients extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'health_id', 'patient_name', 'gender', 'dob', 'mobile', 'occupation', 'state', 'city', 'pincode', 'visit_type_id'
+        'health_id', 'patient_name', 'gender', 'dob', 'mobile', 'occupation', 'state', 'city', 'pincode'
     ];
 }

@@ -10,10 +10,17 @@ use Illuminate\Http\Request;
 class PatientApi extends Controller
 {
 
-    public function index(Request $request)
+    public function index($docId, Request $request)
     {
-        $patients = Patients::all();
-        return $patients;
+        try {
+            $patients = Patients::all();
+            if (count($patients) > 0) {
+                return $patients;
+            }
+            return response()->json(['status' => false, 'message' => "Patients not exists"], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message' => 'Internal Server Error'], 500);
+        }
     }
 
     public function create(Request $request)
