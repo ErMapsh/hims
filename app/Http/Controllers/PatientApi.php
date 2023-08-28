@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class PatientApi extends Controller
 {
-    public function PatientExist($Id)
-    {
-        $entity = Patients::where($Id);
-        return $entity;
-    }
 
     public function index($docId, Request $request)
     {

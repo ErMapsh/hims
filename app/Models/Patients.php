@@ -81,4 +81,18 @@ class Patients extends Model
         }
         return $patient;
     }
+
+    public function patientExist($patientId)
+    {
+        try {
+            $exist = Patients::find($patientId);
+            if ($exist) {
+                return true;
+            }
+            return false;
+        } catch (\Throwable $th) {
+            // dd($th);
+            return response()->json(["status" => false, "message" => "Internal Server Error"], 500);
+        }
+    }
 }
