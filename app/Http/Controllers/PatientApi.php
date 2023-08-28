@@ -15,7 +15,7 @@ class PatientApi extends Controller
         try {
             $patients = Patients::all();
             if (count($patients) > 0) {
-                return $patients;
+                return response()->json(['status' => true, 'data' => $patients]);
             }
             return response()->json(['status' => false, 'message' => "Patients not exists"], 200);
         } catch (\Throwable $th) {
