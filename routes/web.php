@@ -15,10 +15,9 @@ use App\Http\Controllers\PatientApi;
 |
 */
 
-$router->get('api/heartbeat', 'PatientApi@heartbeat');
-$router->post('api/homeall', 'PatientApi@homeall');
+$router->get('/', 'Controller@heartbeat');
 
-// $router->group(['prefix' => 'api/v1'], function () use ($router) {
-//     $router->get('patient', 'PatientApi@index');
-//     $router->post('patient/register', 'PatientApi@create');
-// });
+$router->group(['prefix' => 'api/v1'], function () use ($router) {
+    $router->get('patients', 'PatientApi@index');
+    $router->post('patient/register', 'PatientApi@create');
+});
