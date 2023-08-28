@@ -9,12 +9,21 @@ use Illuminate\Http\Request;
 
 class PatientApi extends Controller
 {
+    public function PatientExist($Id)
+    {
+        $entity = Patients::where($Id);
+        return $entity;
+    }
 
     public function index($docId, Request $request)
     {
         try {
             $patients = Patients::all();
             if (count($patients) > 0) {
+                for ($i = 0; $i < count($patients); $i++) {
+                    $patients[$i]['state_id'] = $this->stateName($patients[$i]['state']);
+                    $patients[$i]['city_id'] = $this->cityName($patients[$i]['city']);
+                }
                 return response()->json(['status' => true, 'data' => $patients]);
             }
             return response()->json(['status' => false, 'message' => "Patients not exists"], 200);

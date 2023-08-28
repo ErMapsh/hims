@@ -11,7 +11,20 @@ use Illuminate\Support\Facades\DB;
 class DoctorApi extends Controller
 {
 
-    // get doctor list
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+
+    public function DoctorExist($docId)
+    {
+        $entity = Doctors::find($docId);
+        return $entity;
+    }
+
     public function index($docId, Request $request)
     {
         try {
@@ -35,7 +48,7 @@ class DoctorApi extends Controller
         }
     }
 
-    public function createPatient($docId, Request $request)
+    public function createPatient($esteblishmentusermapID, Request $request)
     {
         try {
             $input = $request->all();
@@ -52,11 +65,11 @@ class DoctorApi extends Controller
             $pm->city = $input['city'];
             $pm->pincode = $input['pincode'];
             $pm->occupation = $input['occupation'];
-            $pm->created_by = $docId;
+            $pm->created_by = $esteblishmentusermapID;
             $save = $pm->save();
             if ($save) {
                 $currentTimestamp = $this->generateTimestamp();
-                DB::insert('insert into patient_doctor_relation (user_map_id, patient_id, visit_type, created_at) values(?,?,?,?)', [$docId, $pm->id, $input['visit_type'], $currentTimestamp]);
+                DB::insert('insert into patient_doctor_relation (user_map_id, patient_id, visit_type, created_at) values(?,?,?,?)', [$esteblishmentusermapID, $pm->id, $input['visit_type'], $currentTimestamp]);
                 return response()->json(['status' => true, 'message' => 'Patient Registration Successful'], 200);
             } else {
                 return response()->json(['status' => false, 'message' => 'Patient Registration Failed'], 500);
@@ -65,5 +78,15 @@ class DoctorApi extends Controller
             dd($th);
             return response()->json(['status' => false, 'message' => 'Internal Server Error'], 500);
         }
+    }
+
+    public function getPatientList($esteblishmentusermapID)
+    {
+        // $entity = $this->DoctorExist($esteblishmentusermapID);
+        // dd($entity);
+        // doctor is exist and moving forward so tempory purpose
+        $pm = new Patients();
+        return response()->json(['status' => 'success', 'data' => $pm->patientlist($esteblishmentusermapID)], 200);
+        // $pm->search();
     }
 }

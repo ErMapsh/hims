@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 /**
@@ -60,5 +61,17 @@ class Controller extends BaseController
     public function heartbeat()
     {
         return response()->json(['status' => "UP", 'timestamp' => $this->generateTimestamp()]);
+    }
+
+    public function stateName($stateId)
+    {
+        $stateName = DB::table('states')->where('state_id', $stateId)->value('state_name');
+        return $stateName;
+    }
+
+    public function cityName($cityId)
+    {
+        $name = DB::table('cities')->where('city_id', $cityId)->value('city_name');
+        return $name;
     }
 }

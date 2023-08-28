@@ -18,9 +18,6 @@ use App\Http\Controllers\PatientApi;
 $router->get('/', 'Controller@heartbeat');
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
-    //doctor
-
-    // patient
-    $router->get('doctor/{docId}/patients', 'DoctorApi@index');
-    $router->post('doctor/{docId}/patientRegister', 'DoctorApi@createPatient');
+    $router->get('doctor/{esteblishmentusermapID}/patientList', 'DoctorApi@getPatientList');
+    $router->post('doctor/{esteblishmentusermapID}/patientRegister', 'DoctorApi@createPatient');
 });
