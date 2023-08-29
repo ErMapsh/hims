@@ -91,9 +91,12 @@ class DoctorApi extends Controller
         }
     }
 
-    public function diagnosticlist($patientId)
+    public function diagnosticlist($docId, $patientId)
     {
         $api = new Patients();
+
+        $result = DiagnosticReport::join('patient_diagnostic_report', 'patient_diagnostic_report.patient_id', 'patients.id')->where('patient_diagnostic_reports.user_map_id', $docId)->orderBy('patients.patient_name')->distinct()->get();
+        dd($result);
         $entity_exist = $api->patientExist($patientId);
         if ($entity_exist) {
             $fun = new DiagnosticReport();
