@@ -9,6 +9,8 @@ use DB;
 class DiagnosticReport extends Model
 {
     use HasFactory;
+    protected $table = 'patient_diagnostic_report';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'user_map_id',
@@ -22,14 +24,13 @@ class DiagnosticReport extends Model
         'created_at'
     ];
 
-    protected $table = 'patient_diagnostic_report';
-    protected $primaryKey = 'id';
 
-    public function getDiagnosticReport($patient_id)
+    public function getDiagnosticReport($docId, $patient_id)
     {
-        $res = DiagnosticReport::where('patient_id', $patient_id)->get();
-        return $res;
+        $reports = DiagnosticReport::where('patient_id', $patient_id)->where('user_map_id', $docId)->get()->all();
+        if (count($reports) > 0) {
+            return $reports;
+        }
+        return null;
     }
-
-
 }

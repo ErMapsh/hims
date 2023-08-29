@@ -23,8 +23,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->post('doctor/{esteblishmentusermapID}/patientRegister', 'DoctorApi@createPatient');
 
     /* diagnostic report */
-    $router->post('doctor/{docId}/createDiagnosticReport', 'DoctorApi@createDiagnosticReport');
-    $router->get('doctor/{docId}/dignosticReport/{patientId}', 'DoctorApi@diagnosticlist');
+    $router->post('doctor/{docId}/createDiagnosticReport/{patientId}', 'DoctorApi@createDiagnosticReport');
+    $router->get('doctor/{docId}/dignosticReportList/{patientId}', 'DoctorApi@getDiagnosticList');
 
     /* OP consultation */
     $router->post('doctor/{docId}/patient/opCosultation', 'DoctorApi@createOpConsultation');
