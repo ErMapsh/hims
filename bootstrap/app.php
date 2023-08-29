@@ -74,7 +74,7 @@ $app->configure('swagger-lume');
 */
 
 $app->middleware([
-    // App\Http\Middleware\ExampleMiddleware::class
+    App\Http\Middleware\CorsMiddleware::class
 ]);
 
 $app->routeMiddleware([
