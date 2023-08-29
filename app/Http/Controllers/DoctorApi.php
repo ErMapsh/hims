@@ -38,6 +38,7 @@ class DoctorApi extends Controller
             $pm->city = $input['city'];
             $pm->pincode = $input['pincode'];
             $pm->occupation = $input['occupation'];
+            $pm->visit_type = $input['visit_type'];
             $pm->created_by = $esteblishmentusermapID;
             $save = $pm->save();
             if ($save) {
@@ -48,22 +49,28 @@ class DoctorApi extends Controller
                 return response()->json(['status' => false, 'error' => 'Something went wrong', 'message' => "Patient Registration Failed"], 500);
             }
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             return response()->json(['status' => false, 'message' => 'Internal Server Error'], 500);
         }
     }
 
     public function getPatientList($esteblishmentusermapID)
     {
-        // $entity = $this->DoctorExist($esteblishmentusermapID);
-        // dd($entity);
-        // doctor is exist and moving forward so tempory purpose
-        $pm = new Patients();
-        $data = $pm->patientlist($esteblishmentusermapID);
-        if ($data) {
-            return response()->json(['status' => true, 'data' => $data], 200);
+        try {
+            //code...
+            // $entity = $this->DoctorExist($esteblishmentusermapID);
+            // dd($entity);
+            // doctor is exist and moving forward so tempory purpose
+            $pm = new Patients();
+            $data = $pm->patientlist($esteblishmentusermapID);
+            if ($data) {
+                return response()->json(['status' => true, 'data' => $data], 200);
+            }
+            return response()->json(['status' => false, 'message' => 'No patient records found (and its depends on doctor id)'], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['status' => false, 'message' => 'Internal Server Error'], 500);
         }
-        return response()->json(['status' => false, 'message' => 'No patient records found (and its depends on doctor id)']);
     }
 
     // diagnostic report

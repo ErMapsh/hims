@@ -44,9 +44,10 @@ class Patients extends Model
                     "city_id" => $r->city,
                     "city" => $controller->cityName($r->city),
                     "pincode" => $r->pincode,
+                    "visit_type" => $r->visit_type,
                     "occupation" => $r->occupation,
                     "registered_date" => $r->created_at,
-                    "visit_date" => $r->updated_at
+                    "last_appointment_date" => $r->updated_at
                 ];
             }
             return $patient;
