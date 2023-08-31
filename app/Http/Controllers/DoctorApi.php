@@ -59,7 +59,9 @@ class DoctorApi extends Controller
         // dd($entity);
         // doctor is exist and moving forward so tempory purpose
         $pm = new Patients();
+
         $data = $pm->patientlist($esteblishmentusermapID);
+
         if ($data) {
             return response()->json(['status' => true, 'data' => $data], 200);
         }
@@ -72,7 +74,6 @@ class DoctorApi extends Controller
         /* before creating diagnostric report we have to check the patient have doctor have relation */
         try {
             $req = $request->all();
-            // dd($req, $docId);
             $dr = new DiagnosticReport();
             $dr->patient_id = $patientId;
             $dr->user_map_id = $docId;
@@ -109,4 +110,117 @@ class DoctorApi extends Controller
         }
         return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
     }
+
+     // opconsultation
+     public function createOpConsultation($docId,$patientId, Request $request)
+     {
+         try {
+             $req = $request->all();
+             $op = new Opconsultation();
+             $op->patient_id =$patientId;
+             $op->user_map_id = $docId;
+             $op->notes = $req['notes'];
+             $op->upload_file = $req['upload_file'];
+             $op->upload_file_name =$req['upload_file_name'];
+             $save = $op->save();
+
+             if ($save) {
+                 return response()->json(['status' => true, 'message' => "Opconsultation record successfully added"], 200);
+             }
+         } catch (\Throwable $th) {
+             dd($th);
+             return response()->json(["status" => false, 'message' => "Internal Server Error"], 500);
+         }
+     }
+
+     public function Opconsultationlist($patientId,$docId)
+     {
+        $patientModel = new Patients();
+        $patietntExist = $patientModel->patientExist($patientId);
+
+        if ($patietntExist) {
+            $api = new Opconsultation();
+            $res = $api->getOpconsultationReport($docId, $patientId);
+            if ($res) {
+                return response()->json(['status' => true, "opConsultation_data" => $res], 200);
+            }
+            return response()->json(['status' => true, "message" => "Records Not Available"], 200);
+        }
+        return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
+     }
+
+     // Discharge summary
+     public function CreateDischargeSummary($docId, $patientId,Request $request)
+     {
+         try {
+             $req = $request->all();
+             $op = new DischargeSummary();
+
+             $op->patient_id = $patientId;
+             $op->user_map_id = $docId;
+             $op->notes = $req['notes'];
+             $op->upload_file = $req['upload_file'];
+             $op->upload_file_name =$req['upload_file_name'];
+
+             $save = $op->save();
+             if ($save) {
+                 return response()->json(['status' => true, 'message' => "Discharge summary record successfully added"], 200);
+             }
+         } catch (\Throwable $th) {
+             return response()->json(["status" => false, 'message' => "Internal Server Error"], 500);
+         }
+     }
+
+     public function DischargeSummaryList($docId,$patientId)
+     {
+        $patientModel = new Patients();
+        $patietntExist = $patientModel->patientExist($patientId);
+
+        if ($patietntExist) {
+            $api = new DischargeSummary();
+            $res = $api->getDischargeSummaryList($docId,$patientId);
+            if ($res) {
+                return response()->json(['status' => true, "Discharge_summary data " => $res], 200);
+            }
+            return response()->json(['status' => true, "message" => "Records Not Available"], 200);
+        }
+        return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
+     }
+
+     // Record prescription
+     public function UploadRecordPrescription($docId, Request $request)
+     {
+         try {
+             $req = $request->all();
+             $op = new RecordPrescription();
+             $op->patient_id = $req['patient_id'];
+             $op->user_map_id = $docId;
+             $op->notes = $req['notes'];
+             $op->upload_file = $req['upload_file'];
+
+             $save = $op->save();
+             if ($save) {
+                 return response()->json(['status' => true, 'message' => "Record prescription successfully added"], 200);
+             }
+         } catch (\Throwable $th) {
+             dd($th);
+             return response()->json(["status" => false, 'message' => "Internal Server Error"], 500);
+         }
+     }
+
+     public function RecordPrescriptionList($docId,$patientId)
+     {
+        $patientModel = new Patients();
+        $patietntExist = $patientModel->patientExist($patientId);
+
+        if ($patietntExist) {
+            $api = new RecordPrescription();
+            $res = $api->getRecordPrescriptionList($docId,$patientId);
+            if ($res) {
+                return response()->json(['status' => true, "Record_Prescription data " => $res], 200);
+            }
+            return response()->json(['status' => true, "message" => "Records Not Available"], 200);
+        }
+        return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
+     }
 }

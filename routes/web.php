@@ -27,15 +27,15 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->get('doctor/{docId}/dignosticReportList/{patientId}', 'DoctorApi@getDiagnosticList');
 
     /* OP consultation */
-    $router->post('doctor/{docId}/patient/opCosultation', 'DoctorApi@createOpConsultation');
-    $router->get('doctor/patient/{docId}/opCosultation/{patientId}', 'DoctorApi@Opconsultationlist');
+    $router->post('doctor/{docId}/opCosultation/{patientId}', 'DoctorApi@createOpConsultation');
+    $router->get('doctor/{docId}/opCosultation/{patientId}', 'DoctorApi@Opconsultationlist');
 
     /* Discharge summary */
-    $router->post('doctor/{docId}/patient/DischargeSummary', 'DoctorApi@CreateDischargeSummary');
-    $router->get('doctor/patient/{docId}/DischargeSummary/{patientId}', 'DoctorApi@DischargeSummaryList');
+    $router->post('doctor/{docId}/DischargeSummary/{patientId}', 'DoctorApi@CreateDischargeSummary');
+    $router->get('doctor/{docId}/DischargeSummary/{patientId}', 'DoctorApi@DischargeSummaryList');
 
 
     /* Record Precription */
-    $router->post('doctor/{docId}/patient/UploadRecordPrescription', 'DoctorApi@UploadRecordPrescription');
-    $router->get('doctor/patient/{docId}/RecordPrescription/{patientId}', 'DoctorApi@RecordPrescriptionList');
+    $router->post('doctor/{docId}/UploadRecordPrescription/{patientId}', 'DoctorApi@UploadRecordPrescription');
+    $router->get('doctor/{docId}/UploadRecordPrescription/{patientId}', 'DoctorApi@RecordPrescriptionList');
 });

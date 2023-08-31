@@ -14,10 +14,14 @@ class RecordPrescription extends Model
     protected $fillable = [
         'id', 'user_map_id', 'patient_id', 'notes', 'upload_file', 'created_at'
     ];
-    public function getRecordPrescriptionList($patient_id)
+    public function getRecordPrescriptionList($docId,$patientId)
     {
-        $res = RecordPrescription::where('patient_id', $patient_id)->get();
-        return $res;
+        $reports = RecordPrescription::where('patient_id', $patientId)->where('user_map_id', $docId)->get()->all();
+        if (count($reports) > 0) {
+            return $reports;
+        }
+        return null;
+
     }
 
 }

@@ -49,6 +49,7 @@ class Patients extends Model
                     "visit_date" => $r->updated_at
                 ];
             }
+
             return $patient;
         }
         return null;

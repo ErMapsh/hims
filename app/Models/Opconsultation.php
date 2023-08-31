@@ -14,10 +14,13 @@ class Opconsultation extends Model
     protected $fillable = [
         'id', 'user_map_id', 'patient_id', 'notes', 'upload_file', 'created_at'
     ];
-    public function getOpconsultationReport($patient_id)
+    public function getOpconsultationReport($docId,$patient_id)
     {
-        $res = Opconsultation::where('patient_id', $patient_id)->get();
-        return $res;
+        $reports = Opconsultation::where('patient_id', $patient_id)->where('user_map_id', $docId)->get()->all();
+        if (count($reports) > 0) {
+            return $reports;
+        }
+        return null;
     }
 
 }
