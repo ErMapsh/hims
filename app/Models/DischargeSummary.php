@@ -12,7 +12,7 @@ class DischargeSummary extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'user_map_id', 'patient_id', 'report_type', 'report_category', 'laboratory_test_name', 'report_conclusion', 'reporting_Doctor', 'upload_file', 'upload_file_name'
+        'id', 'user_map_id', 'patient_id', 'notes', 'upload_file', 'created_at'
     ];
 
 

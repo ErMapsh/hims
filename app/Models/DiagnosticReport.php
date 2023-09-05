@@ -24,7 +24,6 @@ class DiagnosticReport extends Model
         'created_at'
     ];
 
-
     public function getDiagnosticReport($docId, $patient_id)
     {
         $reports = DiagnosticReport::where('patient_id', $patient_id)->where('user_map_id', $docId)->get()->all();

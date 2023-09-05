@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\clinicalhistory;
 use App\Models\DiagnosticReport;
 use App\Models\DischargeSummary;
 use App\Models\Doctors;
@@ -11,6 +12,7 @@ use App\Models\Patients;
 use App\Models\RecordPrescription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class DoctorApi extends Controller
 {
@@ -40,6 +42,7 @@ class DoctorApi extends Controller
             $pm->occupation = $input['occupation'];
             $pm->created_by = $esteblishmentusermapID;
             $save = $pm->save();
+
             if ($save) {
                 $currentTimestamp = $this->generateTimestamp();
                 DB::insert('insert into patient_doctor_relation (user_map_id, patient_id, visit_type, created_at) values(?,?,?,?)', [$esteblishmentusermapID, $pm->patient_id, $input['visit_type'], $currentTimestamp]);
@@ -152,23 +155,24 @@ class DoctorApi extends Controller
      // Discharge summary
      public function CreateDischargeSummary($docId, $patientId,Request $request)
      {
-         try {
-             $req = $request->all();
-             $op = new DischargeSummary();
 
-             $op->patient_id = $patientId;
-             $op->user_map_id = $docId;
-             $op->notes = $req['notes'];
-             $op->upload_file = $req['upload_file'];
-             $op->upload_file_name =$req['upload_file_name'];
+        try {
+            $req = $request->all();
+            $di = new DischargeSummary();
+            $di->patient_id =$patientId;
+            $di->user_map_id = $docId;
+            $di->notes = $req['notes'];
+            $di->upload_file = $req['upload_file'];
+            $di->upload_file_name =$req['upload_file_name'];
+            $save = $di->save();
 
-             $save = $op->save();
-             if ($save) {
-                 return response()->json(['status' => true, 'message' => "Discharge summary record successfully added"], 200);
-             }
-         } catch (\Throwable $th) {
-             return response()->json(["status" => false, 'message' => "Internal Server Error"], 500);
-         }
+            if ($save) {
+                return response()->json(['status' => true, 'message' => "DischargeSummary record successfully added"], 200);
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+            return response()->json(["status" => false, 'message' => "Internal Server Error"], 500);
+        }
      }
 
      public function DischargeSummaryList($docId,$patientId)
@@ -180,7 +184,7 @@ class DoctorApi extends Controller
             $api = new DischargeSummary();
             $res = $api->getDischargeSummaryList($docId,$patientId);
             if ($res) {
-                return response()->json(['status' => true, "Discharge_summary data " => $res], 200);
+                return response()->json(['status' => true, "Discharge_summary_data" => $res], 200);
             }
             return response()->json(['status' => true, "message" => "Records Not Available"], 200);
         }
@@ -188,12 +192,12 @@ class DoctorApi extends Controller
      }
 
      // Record prescription
-     public function UploadRecordPrescription($docId, Request $request)
+     public function UploadRecordPrescription($docId,$patientId, Request $request)
      {
          try {
              $req = $request->all();
              $op = new RecordPrescription();
-             $op->patient_id = $req['patient_id'];
+             $op->patient_id = $patientId;
              $op->user_map_id = $docId;
              $op->notes = $req['notes'];
              $op->upload_file = $req['upload_file'];
@@ -222,5 +226,13 @@ class DoctorApi extends Controller
             return response()->json(['status' => true, "message" => "Records Not Available"], 200);
         }
         return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
+     }
+public function viewPastClinicalHistory($docId,$patientId){
+        $api =new clinicalhistory();
+        $res =$api ->getClinicalhistory($docId,$patientId);
+        if($res){
+            return response()->json(['status' => true, "data" => $res], 200);
+        }
+        return response()->json(['status' => true, "message" => "data not Available"], 200);
      }
 }
