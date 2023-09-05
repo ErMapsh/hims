@@ -40,6 +40,7 @@ class DoctorApi extends Controller
             $pm->city = $input['city'];
             $pm->pincode = $input['pincode'];
             $pm->occupation = $input['occupation'];
+            $pm->visit_type = $input['visit_type'];
             $pm->created_by = $esteblishmentusermapID;
             $save = $pm->save();
 
@@ -51,7 +52,7 @@ class DoctorApi extends Controller
                 return response()->json(['status' => false, 'error' => 'Something went wrong', 'message' => "Patient Registration Failed"], 500);
             }
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             return response()->json(['status' => false, 'message' => 'Internal Server Error'], 500);
         }
     }
