@@ -110,7 +110,7 @@ class DoctorApi extends Controller
             if ($res) {
                 return response()->json(['status' => true, "diagnostic_data" => $res], 200);
             }
-            return response()->json(['status' => true, "message" => "Patient Records Not Available"], 200);
+            return response()->json(['status' => false, "message" => "Patient Records Not Available"], 200);
         }
         return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
     }
@@ -148,7 +148,7 @@ class DoctorApi extends Controller
             if ($res) {
                 return response()->json(['status' => true, "opConsultation_data" => $res], 200);
             }
-            return response()->json(['status' => true, "message" => "Records Not Available"], 200);
+            return response()->json(['status' => false, "message" => "Records Not Available"], 200);
         }
         return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
      }
@@ -187,7 +187,7 @@ class DoctorApi extends Controller
             if ($res) {
                 return response()->json(['status' => true, "Discharge_summary_data" => $res], 200);
             }
-            return response()->json(['status' => true, "message" => "Records Not Available"], 200);
+            return response()->json(['status' => false, "message" => "Records Not Available"], 200);
         }
         return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
      }
@@ -222,9 +222,9 @@ class DoctorApi extends Controller
             $api = new RecordPrescription();
             $res = $api->getRecordPrescriptionList($docId,$patientId);
             if ($res) {
-                return response()->json(['status' => true, "Record_Prescription data " => $res], 200);
+                return response()->json(['status' => true, "Record_Prescription_data" => $res], 200);
             }
-            return response()->json(['status' => true, "message" => "Records Not Available"], 200);
+            return response()->json(['status' => false, "message" => "Records Not Available"], 200);
         }
         return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
      }
