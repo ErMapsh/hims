@@ -11,6 +11,7 @@ class Patients extends Model
     use HasFactory;
     protected $table = 'patients';
     protected $primaryKey = 'patient_id';
+
     protected $fillable = [
         'health_id', 'patient_name', 'gender', 'dob', 'mobile', 'occupation', 'state', 'city', 'pincode', 'created_by'
     ];
@@ -55,4 +56,9 @@ class Patients extends Model
         }
         return null;
     }
+
+
+
+
+
 }

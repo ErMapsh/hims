@@ -8,6 +8,7 @@ use App\Models\DiagnosticReport;
 use App\Models\DischargeSummary;
 use App\Models\Doctors;
 use App\Models\Opconsultation;
+use App\Models\PatientDoctorRelationship;
 use App\Models\Patients;
 use App\Models\RecordPrescription;
 use Illuminate\Http\Request;
@@ -229,11 +230,18 @@ class DoctorApi extends Controller
         return response()->json(['status' => false, "message" => "Patient Not Found"], 400);
      }
 public function viewPastClinicalHistory($docId,$patientId){
+
+   $doctorRelationModel =new PatientDoctorRelationship();
+   $docPatRelationExist =$doctorRelationModel->doctorPatientRelationExists($patientId,$docId);
+
+   if($docPatRelationExist){
         $api =new clinicalhistory();
         $res =$api ->getClinicalhistory($docId,$patientId);
         if($res){
             return response()->json(['status' => true, "data" => $res], 200);
         }
-        return response()->json(['status' => true, "message" => "data not Available"], 200);
-     }
+        return response()->json(['status' => false, "message" => "data not Available"], 200);
+    }
+     return response()->json(['status' => false, 'message' => "Patient not Found"],400);
+  }
 }
