@@ -888,6 +888,7 @@ CREATE TABLE patient_record_discharge_summary(
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     notes varchar(200),
     upload_file LONGBLOB,
+    upload_file_name varchar(200),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
