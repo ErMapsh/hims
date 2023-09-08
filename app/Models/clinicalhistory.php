@@ -43,7 +43,7 @@ $query4 = DB::table('patient_doctor_relation AS pdr')
     ->where('pdr.patient_id', $patient_Id)
     ->where('rp.user_map_id', $docId);
 
-$result = ($query1)->union($query2)->union($query3)->union($query4)->orderBy('created_at', 'desc')->get();
+$result = ($query1)->union($query2)->union($query3)->union($query4)->orderBy('created_at', 'asc')->get();
 
 
 
