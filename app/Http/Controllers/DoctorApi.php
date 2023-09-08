@@ -60,6 +60,7 @@ class DoctorApi extends Controller
 
     public function getPatientList($esteblishmentusermapID)
     {
+        // dd($esteblishmentusermapID);
         // $entity = $this->DoctorExist($esteblishmentusermapID);
         // dd($entity);
         // doctor is exist and moving forward so tempory purpose

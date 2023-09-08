@@ -30,7 +30,8 @@ class Patients extends Model
     {
         $patient = [];
         $controller = new Controller();
-        $result = Patients::join('patient_doctor_relation', 'patient_doctor_relation.patient_id', 'patients.patient_id')->where('patient_doctor_relation.user_map_id', $esteblishmentusermapID)->orderBy('patients.patient_name')->distinct()->get();
+        $result = Patients::join('patient_doctor_relation', 'patient_doctor_relation.patient_id', 'patients.patient_id')->where('patient_doctor_relation.user_map_id', $esteblishmentusermapID)->orderBy('patients.created_at', 'desc')->distinct()->get();
+        // dd($result);
         if (count($result) > 0) {
             foreach ($result as $r) {
                 $patient[] = [
