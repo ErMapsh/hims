@@ -21,7 +21,6 @@ class RecordPrescription extends Model
             return $reports;
         }
         return null;
-
     }
 
 }
