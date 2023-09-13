@@ -16,7 +16,7 @@ class electronicRecordUpload extends Model
     ];
 
 
-    public function getDischargeSummaryList($docId, $patientId)
+    public function ElectronicRecord($docId, $patientId)
     {
         $reports = electronicRecordUpload::where('patient_id', $patientId)->where('user_map_id', $docId)->get()->all();
         if (count($reports) > 0) {
