@@ -42,6 +42,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->post('doctor/{docId}/UploadElectronicRecord', 'DoctorApi@UploadElectronicRecord');
 
+    $router->post('doctor/{docId}/getElectronicRecord', 'DoctorApi@getElectronicRecord');
+
 
 
 });

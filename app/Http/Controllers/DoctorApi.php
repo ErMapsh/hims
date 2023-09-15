@@ -266,7 +266,16 @@ public function viewPastClinicalHistory($docId,$patientId){
         dd($th);
         return response()->json(["status" => false, 'message' => "Internal Server Error"], 500);
     }
+  }
 
+  public function getElectronicRecord($docId){
+
+        $api =new electronicRecordUpload();
+        $res =$api ->ElectronicRecord($docId);
+        if($res){
+            return response()->json(['status' => true, "data" => $res], 200);
+        }
+        return response()->json(['status' => false, "message" => "data not Available"], 200);
   }
 
 
