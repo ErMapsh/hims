@@ -7,6 +7,7 @@ use App\Models\clinicalhistory;
 use App\Models\DiagnosticReport;
 use App\Models\DischargeSummary;
 use App\Models\Doctors;
+use App\Models\electronicRecordUpload;
 use App\Models\Opconsultation;
 use App\Models\PatientDoctorRelationship;
 use App\Models\Patients;
@@ -245,4 +246,29 @@ public function viewPastClinicalHistory($docId,$patientId){
     }
      return response()->json(['status' => false, 'message' => "Patient not Found"],400);
   }
+
+  public function UploadElectronicRecord($docId, Request $request){
+    try {
+        $req = $request->all();
+        $edu = new electronicRecordUpload();
+        $edu->user_map_id = $docId;
+        $edu->patient_name =$req['patient_name'];
+        $edu->gender =$req['gender'];
+        $edu->dob =$req['dob'];
+        $edu->notes =$req['notes'];
+        $edu->upload_file = $req['upload_file'];
+        $edu->upload_file_name =$req['upload_file_name'];
+        $save = $edu->save();
+        if ($save) {
+            return response()->json(['status' => true, 'message' => "electronic records upload successfully successfully added"], 200);
+        }
+    } catch (\Throwable $th) {
+        dd($th);
+        return response()->json(["status" => false, 'message' => "Internal Server Error"], 500);
+    }
+
+  }
+
+
+
 }

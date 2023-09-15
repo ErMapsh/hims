@@ -40,6 +40,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     // view past clinical history
     $router->get('doctor/{docId}/viewPastClinicalHistory/{patientId}', 'DoctorApi@viewPastClinicalHistory');
 
+    $router->post('doctor/{docId}/UploadElectronicRecord', 'DoctorApi@UploadElectronicRecord');
+
 
 
 });
