@@ -1,18 +1,22 @@
 {
     "name": "laravel/lumen",
     "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "keywords": [
+        "framework",
+        "laravel",
+        "lumen"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^8.1",
-        "darkaonline/swagger-lume": "^10.1",
-        "laravel/lumen-framework": "^10.0"
+        "php": "8.0.28",
+        "darkaonline/swagger-lume": "^6.0",
+        "laravel/lumen-framework": "^8.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
-        "phpunit/phpunit": "^10.0"
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
