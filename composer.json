@@ -9,14 +9,14 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "8.0.28",
-        "darkaonline/swagger-lume": "^6.0",
-        "laravel/lumen-framework": "^8.0"
+        "php": "^8.0",
+        "darkaonline/swagger-lume": "^10.1",
+        "laravel/lumen-framework": "^9.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
         "psr-4": {
@@ -40,6 +40,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
